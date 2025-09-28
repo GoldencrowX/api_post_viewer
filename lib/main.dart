@@ -1,6 +1,6 @@
-import 'package:api_post_viewer/models/post_model.dart';
-import 'package:api_post_viewer/services/api_service.dart';
 import 'package:flutter/material.dart';
+import 'package:api_post_viewer/services/api_service.dart';
+import 'package:api_post_viewer/models/post.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,10 +12,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'API Post Viewer',
+      title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.teal,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
       home: const PostListScreen(),
       debugShowCheckedModeBanner: false,
@@ -42,7 +41,12 @@ class _PostListScreenState extends State<PostListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Posts from API')),
+      appBar: AppBar(
+        title: const Text(
+          'Posts from API',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+      ),
       body: FutureBuilder<List<Post>>(
         future: _futurePosts,
         builder: (context, snapshot) {
@@ -66,6 +70,14 @@ class _PostListScreenState extends State<PostListScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Text(
+                          'User ID: ${post.userId}',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
                         Text(
                           '${post.id}. ${post.title}',
                           style: const TextStyle(
